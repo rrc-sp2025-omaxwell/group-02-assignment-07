@@ -4,8 +4,8 @@ import csv
 import json
 from os import path
 
-__author__ = ""
-__version__ = ""
+__author__ = "Owen Maxwell"
+__version__ = "1.0.0"
 __credits__ = "COMP-1327 Faculty"
 
 class InputHandler:
