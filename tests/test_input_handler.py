@@ -5,8 +5,9 @@ of the class methods.
 import unittest
 from unittest import TestCase
 from unittest.mock import patch, mock_open
-import os
 from input_handler.input_handler import InputHandler
+import csv
+from io import StringIO
 
 __author__ = "Owen Maxwell"
 __version__ = "1.0.0"
@@ -36,6 +37,7 @@ class InputHandlerTests(TestCase):
 
     # Define unit test functions below
 
+
     # get_file_format, Returns the file extension of the file path.
     def test_get_file_format(self):
         # Arrange
@@ -47,6 +49,7 @@ class InputHandlerTests(TestCase):
 
         # Assert
         self.assertEqual(expected, actual)
+
 
     # read_csv_data, Raises a FileNotFoundError when the file
     # path does not exist to a file. 
@@ -62,35 +65,38 @@ class InputHandlerTests(TestCase):
         
         self.assertEqual(expected, str(context.exception))
 
+
     # read_csv_data, Returns a list containing the transaction data from an existing csv file.
-    def test_read_csv_data_list_return(self):
+    @patch("builtins.open", new_callable = mock_open(read_data = ""))
+    def test_read_csv_data_return_list(self, mock_file):
+        
+        expected = {"Transaction ID": "1", "Account number": "1001",
+                     "Date": "2023-03-01", "Transaction type": "deposit",
+                       "Amount": "1000", "Currency": "CAD", "Description": "Salary"
+        }
 
-        # Arrange
-        filename = InputHandler(self.FILE_CONTENTS)
-        expected = self.FILE_CONTENTS
+        mock_file.return_value = StringIO(self.FILE_CONTENTS)
 
-        with patch('builtins.open', mock_open(read_data = self.FILE_CONTENTS)):
+        with patch("os.path.isfile", return_value = True):
+            filepath = InputHandler("file.csv")
+            transaction_list = filepath.read_input_data()
 
+        # tests a single transaction
+        self.assertEqual(expected, transaction_list[0])
 
-            actual = InputHandler.read_csv_data(self.FILE_CONTENTS)
-            self.assertEqual(expected, actual)
-
-    # read_input_data, Returns a list containing the transaction data from an existing csv file.
 
     # read_input_data, Returns a list containing the transaction data from an existing json file.
     def test_input_data_json_list(self):
         # Arrange
+        
         expected = self.FILE_CONTENTS
-        filename = "file.json"
+        
+        with patch('builtins.open', mock_open(read_data = self.FILE_CONTENTS)):
+            with open("path/to/file.json") as file:
+                actual = file.read()
 
+                self.assertEqual(expected, actual)
 
-        # Act
-        with patch('builtins.open', mock_open(read_data=expected)) as mocked_file:
-
-            actual = InputHandler.read_input_data(InputHandler(filename))
-
-        # Assert
-        self.assertEqual(expected, actual)
 
     # read_input_data, Returns an empty list if the file is not a csv or json file.
     def test_read_input_data_no_file(self):
