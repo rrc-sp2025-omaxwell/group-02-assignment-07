@@ -7,6 +7,7 @@ from unittest import TestCase
 from unittest.mock import patch, mock_open
 from input_handler.input_handler import InputHandler
 import csv
+import json
 from io import StringIO
 
 __author__ = "Owen Maxwell"
@@ -70,33 +71,76 @@ class InputHandlerTests(TestCase):
     @patch("builtins.open", new_callable = mock_open(read_data = ""))
     def test_read_csv_data_return_list(self, mock_file):
         
-        expected = {"Transaction ID": "1", "Account number": "1001",
-                     "Date": "2023-03-01", "Transaction type": "deposit",
-                       "Amount": "1000", "Currency": "CAD", "Description": "Salary"
-        }
-
+        # Arrange
+        # Utilize StringIO to treat the file as if it were a file.
         mock_file.return_value = StringIO(self.FILE_CONTENTS)
 
+        # Act
+        with patch("os.path.isfile", return_value = True):
+            filepath = InputHandler("file.csv")
+            transaction_list = filepath.read_csv_data()
+
+        # Assert
+        # tests a single transaction
+        expected = {"Transaction ID": "1", "Account number": "1001",
+                     "Date": "2023-03-01", "Transaction type": "deposit",
+                       "Amount": "1000", "Currency": "CAD", "Description": "Salary"}
+
+        self.assertEqual(expected, transaction_list[0])
+
+
+    # read_input_data, Returns a list containing the transaction data from an existing csv file.
+    @patch("builtins.open", new_callable = mock_open(read_data = ""))
+    def test_read_input_data_csv(self, mock_file):
+        
+        # Arrange
+        mock_file.return_value = StringIO(self.FILE_CONTENTS)
+
+        # Act
         with patch("os.path.isfile", return_value = True):
             filepath = InputHandler("file.csv")
             transaction_list = filepath.read_input_data()
 
+        # Assert
         # tests a single transaction
+        expected = {"Transaction ID": "1", "Account number": "1001",
+                     "Date": "2023-03-01", "Transaction type": "deposit",
+                       "Amount": "1000", "Currency": "CAD", "Description": "Salary"}
+
         self.assertEqual(expected, transaction_list[0])
 
 
     # read_input_data, Returns a list containing the transaction data from an existing json file.
-    def test_input_data_json_list(self):
+    @patch("builtins.open", new_callable = mock_open(read_data = ""))
+    def test_read_input_data_json(self, mock_file):
+        
         # Arrange
-        
-        expected = self.FILE_CONTENTS
-        
-        with patch('builtins.open', mock_open(read_data = self.FILE_CONTENTS)):
-            with open("path/to/file.json") as file:
-                actual = file.read()
 
-                self.assertEqual(expected, actual)
+        json_format = json.dumps([
+                                    {
+                                        "Transaction ID": "1",
+                                        "Account number": "1001",
+                                        "Date": "2023-03-01",
+                                        "Transaction type": "deposit",
+                                        "Amount": "1200",
+                                        "Currency": "CAD",
+                                        "Description": "Salary"
+                                    }
+                                ])
+        mock_file.return_value = StringIO(json_format)
 
+        # Act
+        with patch("os.path.isfile", return_value = True):
+            filepath = InputHandler("file.json")
+            transaction_list = filepath.read_input_data()
+
+        # Assert
+        # tests a single transaction
+        expected = {"Transaction ID": "1", "Account number": "1001",
+                     "Date": "2023-03-01", "Transaction type": "deposit",
+                       "Amount": "1200", "Currency": "CAD", "Description": "Salary"}
+
+        self.assertEqual(expected, transaction_list[0])
 
     # read_input_data, Returns an empty list if the file is not a csv or json file.
     def test_read_input_data_no_file(self):

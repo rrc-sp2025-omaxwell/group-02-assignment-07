@@ -1,4 +1,5 @@
-"""REQUIRED MODULE DOCUMENTATION"""
+"""Contains a class titled InputHandler, to filter file types
+and execute methods to read them accordingly, then logging the results in transactions. """
 
 import csv
 import json
