@@ -1,18 +1,28 @@
-"""REQUIRED MODULE DOCUMENTATION"""
+"""The output handler takes its 3 arguments from
+the data processor and writes the
+data to a csv file."""
 
 import csv
 
-__author__ = ""
-__version__ = ""
+__author__ = "Owen Maxwell"
+__version__ = "1.0.0"
 __credits__ = "COMP-1327 Faculty"
 
 class OutputHandler:
-    """REQUIRED: CLASS DOCSTRING"""
+    """Takes 3 arguements and after verification,
+    writes the data in a csv file"""
 
     def __init__(self, account_summaries: dict, 
                        suspicious_transactions: list, 
                        transaction_statistics: dict):
-        """REQUIRED: METHOD DOCSTRING"""
+        """Initializes the class instance with 3 arguements.
+        
+        Args:
+            account_summaries (dict): Summarized data for each account.
+            suspicious_transactions (list): A list of all transactions
+            flagged as suspicious.
+            transaction_statistics (dict): Stores statistics relative to each transaction.
+        """
 
         self.__account_summaries = account_summaries
         self.__suspicious_transactions = suspicious_transactions
@@ -20,19 +30,19 @@ class OutputHandler:
     
     @property
     def account_summaries(self) -> dict:
-        """REQUIRED: METHOD DOCSTRING"""
+        """Enables access to account_summaries for value retrieval."""
 
         return self.__account_summaries
     
     @property
     def suspicious_transactions(self) -> list:
-        """REQUIRED: METHOD DOCSTRING"""
+        """Enables access to suspicious_transactions for value retrieval."""
 
         return self.__suspicious_transactions
     
     @property
     def transaction_statistics(self) -> dict:
-        """REQUIRED: METHOD DOCSTRING"""
+        """Enables access to transaction_statistics for value retrieval."""
 
         return self.__transaction_statistics
 
