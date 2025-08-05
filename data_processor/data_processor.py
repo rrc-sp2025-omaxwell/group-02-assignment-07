@@ -1,7 +1,10 @@
-"""REQUIRED MODULE DOCUMENTATION"""
+"""
+Contains a class named DataProcessor, it stores transaction list, updates the account summary, checks suspicious transactions, 
+and keeps track of total amount in different transaction types.  
+"""
 
-__author__ = ""
-__version__ = ""
+__author__ = "Khushpreet Kaur"
+__version__ = "2.49.0.windows.1"
 __credits__ = "COMP-1327 Faculty"
 
 class DataProcessor:

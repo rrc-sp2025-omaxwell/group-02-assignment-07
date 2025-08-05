@@ -1,11 +1,13 @@
-"""REQUIRED MODULE DOCUMENTATION"""
+"""
+Contains unit tests for DataProcessor class, to check if it is working. 
+"""
 
 import unittest
 from unittest import TestCase
 from data_processor.data_processor import DataProcessor
 
-__author__ = ""
-__version__ = ""
+__author__ = "Khushpreet Kaur"
+__version__ = "2.49.0.windows.1"
 __credits__ = "COMP-1327 Faculty"
 
 class TestDataProcessor(TestCase):
