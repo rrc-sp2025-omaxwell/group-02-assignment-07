@@ -171,9 +171,7 @@ class TestDataProcessor(TestCase):
         data_processor.update_transaction_statistics(transaction)
 
         # Assert
-        self.assertIn("deposit", data_processor.transaction_statistics)
-        self.assertEqual(data_processor.transaction_statistics["deposit"]["total_amount"], 1000)
-        self.assertEqual(data_processor.transaction_statistics["deposit"]["transaction_count"], 1)
+        self.assertEqual(data_processor.transaction_statistics["deposit"],{"total_amount":1000, "transaction": 1})
 
 if __name__ == "__main__":
     unittest.main()
