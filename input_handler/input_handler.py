@@ -134,7 +134,7 @@ class InputHandler:
             ValueError: When the value of Amount is negative.
 
             TypeError: When Amount is a non numeric type.
-            
+
         Returns:
             list: a list containing all valid transactions
               written as dictionaries.
@@ -144,22 +144,27 @@ class InputHandler:
         valid_transaction_types = ["deposit", "withdrawal", "transfer"]
 
         # Iterate over each transaction in list.
-        for row in transactions:
+        for transaction in transactions:
             # Amount Validation
             try:
-                if (isinstance(row("Amount"), (int, float))) and (row("Amount") < 0):
-
+                # Retrieves value associated with "Amount" and converts to int.
+                amount_value = int(transaction.get("Amount"))
+                
+                
+                if isinstance(amount_value, (int, float)) and amount_value > 0:
+            
                     # Transaction Type Validation
                     try:
-                        if row("Transaction type") in valid_transaction_types:
+                        if transaction["Transaction type"] in valid_transaction_types:
 
-                            valid_transactions.append(row)
+                            valid_transactions.append(transaction)
 
                     except ValueError:
-                        return(f"{row("Transaction type")} is not a valid option.")
+                        return valid_transaction_types
                 
-            except Exception as e:
-                return e("Amount must be a non-negative numeric value.")
+            except (ValueError, TypeError):
+
+                return valid_transactions
 
         return valid_transactions
 
