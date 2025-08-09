@@ -212,5 +212,19 @@ class InputHandlerTests(TestCase):
         # Assert
         self.assertEqual(expected, actual)
 
+    # Returns a list of transactions that excludes records
+    #  with an invalid transaction_type.
+    
+    def test_data_validation_invalid_transaction_type(self):
+        # Arrange
+        self.transactions[0]["Transaction type"] = "Move Funds"
+        expected = [self.transactions[1],self.transactions[2]]
+
+        # Act
+        actual = InputHandler.data_validation(self, self.transactions)
+
+        # Assert
+        self.assertEqual(expected, actual)
+
 if __name__ == "__main__":
     unittest.main()
