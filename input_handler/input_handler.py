@@ -119,4 +119,49 @@ class InputHandler:
             transactions = json.load(input_file)
 
         return transactions
+    
+    def data_validation(self, transactions) -> list:
+        """Sorts through all transactions and returns a list
+        of dictionaries representing valid transactions.
+
+        Args:
+            transactions (list): a list recording all
+              transactions made so far.
+
+        Raises:
+            ValueError: When Transaction type is not a valid selection.
+
+            ValueError: When the value of Amount is negative.
+
+            TypeError: When Amount is a non numeric type.
+            
+        Returns:
+            list: a list containing all valid transactions
+              written as dictionaries.
+        """
+
+        valid_transactions = []
+        valid_transaction_types = ["deposit", "withdrawal", "transfer"]
+
+        # Iterate over each transaction in list.
+        for row in transactions:
+            # Amount Validation
+            try:
+                if (isinstance(row("Amount"), (int, float))) and (row("Amount") < 0):
+
+                    # Transaction Type Validation
+                    try:
+                        if row("Transaction type") in valid_transaction_types:
+
+                            valid_transactions.append(row)
+
+                    except ValueError:
+                        return(f"{row("Transaction type")} is not a valid option.")
+                
+            except Exception as e:
+                return e("Amount must be a non-negative numeric value.")
+
+        return valid_transactions
+
+
 
