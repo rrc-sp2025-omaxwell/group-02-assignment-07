@@ -1,12 +1,15 @@
-"""REQUIRED MODULE DOCUMENTATION"""
+"""
+This is main file to run the data processing. 
+It reads input data, processes data with logging, write output data to files.
+"""
 
 from os import path
 from input_handler.input_handler import InputHandler
 from data_processor.data_processor import DataProcessor
 from output_handler.output_handler import OutputHandler
 
-__author__ = ""
-__version__ = ""
+__author__ = "Khushpreet Kaur"
+__version__ = "2.49.0.windows.1"
 __credits__ = "COMP-1327 Faculty"
 
 def main() -> None:
@@ -29,8 +32,13 @@ def main() -> None:
     input_handler = InputHandler(input_file_path)
     transactions = input_handler.read_input_data()
 
-    data_processor = DataProcessor(transactions)
+    # Logging integration start
+    group_number = 2
+    log_filename = f"fdp_team_{group_number}.log"
+
+    data_processor = DataProcessor(transactions, logging_level="INFO", log_file=log_filename)
     processed_data = data_processor.process_data()
+    # Logging integration ends
 
     account_summaries = processed_data["account_summaries"]
     suspicious_transactions = processed_data["suspicious_transactions"]

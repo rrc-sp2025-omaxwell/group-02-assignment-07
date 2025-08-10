@@ -171,9 +171,24 @@ class TestDataProcessor(TestCase):
         data_processor.update_transaction_statistics(transaction)
 
         # Assert
-        self.assertIn("deposit", data_processor.transaction_statistics)
-        self.assertEqual(data_processor.transaction_statistics["deposit"]["total_amount"], 1000)
-        self.assertEqual(data_processor.transaction_statistics["deposit"]["transaction_count"], 1)
+        self.assertEqual(data_processor.transaction_statistics["deposit"],{"total_amount":1000, "transaction_count": 1})
+      
+    # logging
+    def test_process_data_added_logging(self):
+        """
+        Test to check if 'Data Processing Complete' is logged at INFO level.
+        """
+        # Arrange
+        data_processor = DataProcessor(self.transactions, logging_level="INFO")
+
+        # Act
+        with self.assertLogs(data_processor.logger, level="INFO") as log_cm:
+            data_processor.process_data()
+        
+        # Assert
+        logged_messages = log_cm.output
+        matching_logs = [msg for msg in logged_messages if "Data Processing Complete" in msg]
+        self.assertEqual(len(matching_logs), 1)
 
 if __name__ == "__main__":
     unittest.main()
