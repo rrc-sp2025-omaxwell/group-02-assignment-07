@@ -64,6 +64,7 @@ class InputHandler:
         elif file_format == "json":
             transactions = self.read_json_data()
 
+        transactions = self.data_validation(transactions)
         return transactions
 
     def read_csv_data(self) -> list:
@@ -119,4 +120,54 @@ class InputHandler:
             transactions = json.load(input_file)
 
         return transactions
+    
+    def data_validation(self, transactions) -> list:
+        """Sorts through all transactions and returns a list
+        of dictionaries representing valid transactions.
+
+        Args:
+            transactions (list): a list recording all
+              transactions made so far.
+
+        Raises:
+            ValueError: When Transaction type is not a valid selection.
+
+            ValueError: When the value of Amount is negative.
+
+            TypeError: When Amount is a non numeric type.
+
+        Returns:
+            list: a list containing all valid transactions
+              written as dictionaries.
+        """
+
+        valid_transactions = []
+        valid_transaction_types = ["deposit", "withdrawal", "transfer"]
+
+        # Iterate over each transaction in list.
+        for transaction in transactions:
+            # Amount Validation
+            try:
+                # Retrieves value associated with "Amount" and converts to int.
+                amount_value = int(transaction.get("Amount"))
+                
+                
+                if isinstance(amount_value, (int, float)) and amount_value > 0:
+            
+                    # Transaction Type Validation
+                    try:
+                        if transaction["Transaction type"] in valid_transaction_types:
+
+                            valid_transactions.append(transaction)
+
+                    except ValueError:
+                        valid_transaction_types
+                
+            except (ValueError, TypeError):
+
+                valid_transactions
+
+        return valid_transactions
+
+
 
