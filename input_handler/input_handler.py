@@ -64,6 +64,7 @@ class InputHandler:
         elif file_format == "json":
             transactions = self.read_json_data()
 
+        transactions = self.data_validation(transactions)
         return transactions
 
     def read_csv_data(self) -> list:
@@ -160,11 +161,11 @@ class InputHandler:
                             valid_transactions.append(transaction)
 
                     except ValueError:
-                        return valid_transaction_types
+                        valid_transaction_types
                 
             except (ValueError, TypeError):
 
-                return valid_transactions
+                valid_transactions
 
         return valid_transactions
 
