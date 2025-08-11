@@ -1,4 +1,9 @@
-"""Main file is entry point for data processing."""
+
+"""
+Main file is entry point for data processing.
+This is main file to run the data processing. 
+It reads input data, processes data with logging, write output data to files.
+""" 
 
 from os import path
 from input_handler.input_handler import InputHandler
@@ -29,8 +34,13 @@ def main() -> None:
     input_handler = InputHandler(input_file_path)
     transactions = input_handler.read_input_data()
 
-    data_processor = DataProcessor(transactions)
+    # Logging integration start
+    group_number = 2
+    log_filename = f"fdp_team_{group_number}.log"
+
+    data_processor = DataProcessor(transactions, logging_level="INFO", log_file=log_filename)
     processed_data = data_processor.process_data()
+    # Logging integration ends
 
     account_summaries = processed_data["account_summaries"]
     suspicious_transactions = processed_data["suspicious_transactions"]
