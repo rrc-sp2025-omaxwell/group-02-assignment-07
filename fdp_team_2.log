@@ -1,0 +1,69 @@
+2025-08-10 22:35:06,126 - INFO - DataProcessor initialized.
+2025-08-10 22:35:06,127 - INFO - Account summary updated: 1001
+2025-08-10 22:35:06,127 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,127 - INFO - Account summary updated: 1002
+2025-08-10 22:35:06,127 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,127 - INFO - Account summary updated: 1001
+2025-08-10 22:35:06,128 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,128 - INFO - Account summary updated: 1001
+2025-08-10 22:35:06,128 - INFO - Updated transaction statistics for: transfer
+2025-08-10 22:35:06,174 - INFO - Account summary updated: 1002
+2025-08-10 22:35:06,175 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,175 - INFO - Account summary updated: 1002
+2025-08-10 22:35:06,175 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,175 - INFO - Account summary updated: 1001
+2025-08-10 22:35:06,175 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,176 - INFO - Account summary updated: 1002
+2025-08-10 22:35:06,176 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,176 - INFO - Account summary updated: 1001
+2025-08-10 22:35:06,176 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,176 - INFO - Account summary updated: 1002
+2025-08-10 22:35:06,176 - INFO - Updated transaction statistics for: transfer
+2025-08-10 22:35:06,176 - INFO - Account summary updated: 1001
+2025-08-10 22:35:06,176 - WARNING - Suspicious transaction: {'Transaction ID': '11', 'Account number': '1001', 'Date': '2023-03-13', 'Transaction type': 'deposit', 'Amount': '12000', 'Currency': 'CAD', 'Description': 'Car Sale'}
+2025-08-10 22:35:06,176 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,177 - INFO - Account summary updated: 1002
+2025-08-10 22:35:06,177 - WARNING - Suspicious transaction: {'Transaction ID': '12', 'Account number': '1002', 'Date': '2023-03-14', 'Transaction type': 'withdrawal', 'Amount': '11000', 'Currency': 'CAD', 'Description': 'House Down Payment'}
+2025-08-10 22:35:06,177 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,177 - INFO - Account summary updated: 1001
+2025-08-10 22:35:06,177 - WARNING - Suspicious transaction: {'Transaction ID': '13', 'Account number': '1001', 'Date': '2023-03-14', 'Transaction type': 'deposit', 'Amount': '250', 'Currency': 'XRP', 'Description': 'Crypto Investment'}
+2025-08-10 22:35:06,177 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,177 - INFO - Account summary updated: 1002
+2025-08-10 22:35:06,177 - WARNING - Suspicious transaction: {'Transaction ID': '14', 'Account number': '1002', 'Date': '2023-03-14', 'Transaction type': 'deposit', 'Amount': '450', 'Currency': 'LTC', 'Description': 'Crypto Investment'}
+2025-08-10 22:35:06,178 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,178 - INFO - Account summary updated: 1003
+2025-08-10 22:35:06,178 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,178 - INFO - Account summary updated: 1004
+2025-08-10 22:35:06,178 - WARNING - Suspicious transaction: {'Transaction ID': '16', 'Account number': '1004', 'Date': '2023-03-01', 'Transaction type': 'deposit', 'Amount': '11500', 'Currency': 'CAD', 'Description': 'Salary'}
+2025-08-10 22:35:06,178 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,178 - INFO - Account summary updated: 1005
+2025-08-10 22:35:06,178 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,178 - INFO - Account summary updated: 1006
+2025-08-10 22:35:06,178 - INFO - Updated transaction statistics for: transfer
+2025-08-10 22:35:06,179 - INFO - Account summary updated: 1007
+2025-08-10 22:35:06,179 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,179 - INFO - Account summary updated: 1003
+2025-08-10 22:35:06,179 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,179 - INFO - Account summary updated: 1004
+2025-08-10 22:35:06,179 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,179 - INFO - Account summary updated: 1005
+2025-08-10 22:35:06,179 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,179 - INFO - Account summary updated: 1006
+2025-08-10 22:35:06,179 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,179 - INFO - Account summary updated: 1007
+2025-08-10 22:35:06,180 - INFO - Updated transaction statistics for: transfer
+2025-08-10 22:35:06,180 - INFO - Account summary updated: 1003
+2025-08-10 22:35:06,180 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,180 - INFO - Account summary updated: 1004
+2025-08-10 22:35:06,180 - INFO - Updated transaction statistics for: withdrawal
+2025-08-10 22:35:06,180 - INFO - Account summary updated: 1005
+2025-08-10 22:35:06,180 - WARNING - Suspicious transaction: {'Transaction ID': '27', 'Account number': '1005', 'Date': '2023-03-14', 'Transaction type': 'deposit', 'Amount': '2030', 'Currency': 'XRP', 'Description': 'Crypto Investment'}
+2025-08-10 22:35:06,180 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,180 - INFO - Account summary updated: 1006
+2025-08-10 22:35:06,180 - WARNING - Suspicious transaction: {'Transaction ID': '28', 'Account number': '1006', 'Date': '2023-03-14', 'Transaction type': 'deposit', 'Amount': '1520', 'Currency': 'LTC', 'Description': 'Crypto Investment'}
+2025-08-10 22:35:06,180 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,180 - INFO - Account summary updated: 1007
+2025-08-10 22:35:06,181 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,181 - INFO - Account summary updated: 1003
+2025-08-10 22:35:06,181 - INFO - Updated transaction statistics for: deposit
+2025-08-10 22:35:06,181 - INFO - Data Processing Complete

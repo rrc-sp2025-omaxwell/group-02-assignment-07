@@ -1,12 +1,12 @@
-"""REQUIRED MODULE DOCUMENTATION"""
+"""Main file is entry point for data processing."""
 
 from os import path
 from input_handler.input_handler import InputHandler
 from data_processor.data_processor import DataProcessor
 from output_handler.output_handler import OutputHandler
 
-__author__ = ""
-__version__ = ""
+__author__ = "Khushpreet Kaur"
+__version__ = "2.49.0.windows.1"
 __credits__ = "COMP-1327 Faculty"
 
 def main() -> None:
