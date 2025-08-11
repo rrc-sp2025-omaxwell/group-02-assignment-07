@@ -33,10 +33,22 @@ class TestOutputHandler(TestCase):
                 "total_withdrawals": 50
             },
             "1002": {
-                "account_number": "2", 
+                "account_number": "1002", 
                 "balance": 200, 
                 "total_deposits": 200, 
                 "total_withdrawals": 0
+            },
+             "1004": {
+                "account_number": "1004", 
+                "balance": 11500, 
+                "total_deposits": 11500, 
+                "total_withdrawals": 0
+            },
+            "1005": {
+                "account_number": "1005", 
+                "balance": -2200, 
+                "total_deposits": 222, 
+                "total_withdrawals": 2422
             }
         }
 
@@ -63,6 +75,9 @@ class TestOutputHandler(TestCase):
             }
         }
 
+        # Initialize handler for tests that use self.handler
+        self.handler = OutputHandler(self.account_summaries, self.suspicious_transactions, self.transaction_statistics)
+
     # Define unit test functions below
 
     # test by initializing an OutputHandler object.
@@ -70,7 +85,7 @@ class TestOutputHandler(TestCase):
     def test_init(self):
         # Arrange
         output = OutputHandler(self.account_summaries,
-         self.suspicious_transactions, self.transaction_statistics,)
+        self.suspicious_transactions, self.transaction_statistics,)
         
         # Act
         expected_summary = self.account_summaries
@@ -87,7 +102,7 @@ class TestOutputHandler(TestCase):
     def test_account_summaries_state(self):
         # Arrange and Act
         state = OutputHandler(self.account_summaries,
-         self.suspicious_transactions, self.transaction_statistics,)
+        self.suspicious_transactions, self.transaction_statistics,)
         
         # Assert
         self.assertEqual(self.account_summaries, state.account_summaries)
@@ -97,7 +112,7 @@ class TestOutputHandler(TestCase):
     def test_suspicious_transactions_state(self):
         # Arrange and Act
         state = OutputHandler(self.account_summaries,
-         self.suspicious_transactions, self.transaction_statistics,)
+        self.suspicious_transactions, self.transaction_statistics,)
         
         # Assert
         self.assertEqual(self.suspicious_transactions, state.suspicious_transactions)
@@ -107,7 +122,7 @@ class TestOutputHandler(TestCase):
     def test_transaction_statistics_state(self):
         # Arrange and Act
         state = OutputHandler(self.account_summaries,
-         self.suspicious_transactions, self.transaction_statistics,)
+        self.suspicious_transactions, self.transaction_statistics,)
         
         # Assert
         self.assertEqual(self.transaction_statistics, state.transaction_statistics)
@@ -117,7 +132,7 @@ class TestOutputHandler(TestCase):
     def test_write_account_summaries(self):
         # Arrange
         output = OutputHandler(self.account_summaries,
-         self.suspicious_transactions, self.transaction_statistics,)
+        self.suspicious_transactions, self.transaction_statistics,)
         filepath = "account_summaries.csv"
 
         # Act
@@ -136,7 +151,7 @@ class TestOutputHandler(TestCase):
             print(line)
 
         # verify there are 3 lines total
-        self.assertEqual(mock_file.write.call_count, 3)
+        self.assertEqual(mock_file.write.call_count, 5)
 
 
     # write_suspicious_transactions_to_csv
@@ -144,7 +159,7 @@ class TestOutputHandler(TestCase):
     def test_write_suspicious_transactions(self):
         # Arrange
         output = OutputHandler(self.account_summaries,
-         self.suspicious_transactions, self.transaction_statistics,)
+        self.suspicious_transactions, self.transaction_statistics,)
         filepath = "suspicious_transactions.csv"
 
         # Act
@@ -170,7 +185,7 @@ class TestOutputHandler(TestCase):
     def test_write_transaction_statistics(self):
         # Arrange
         output = OutputHandler(self.account_summaries,
-         self.suspicious_transactions, self.transaction_statistics,)
+        self.suspicious_transactions, self.transaction_statistics,)
         filepath = "transaction_statistics.csv"
 
         # Act
@@ -191,6 +206,59 @@ class TestOutputHandler(TestCase):
         # verify there are 3 lines total
         self.assertEqual(mock_file.write.call_count, 3)
 
+    # filtered_account_summaries
+    def test_filtered_account_summaries_returns_list_using_mode_true(self):
+        """
+        Test that filtered_account_summaries returns only summaries when filter_mode is True.
+        """
+        result = self.handler.filter_account_summaries(
+            filter_field="balance",
+            filter_value=5000,
+            filter_mode=True
+        )
+
+        expected = [
+            {"account_number": "1004", "balance": 11500, "total_deposits": 11500, "total_withdrawals": 0}
+        ]
+
+        self.assertEqual(result, expected)
+
+    def test_filtered_account_summaries_returns_list_using_mode_false(self):
+        """
+        Test to check if accounts with balance less than or equal to 5000 are returned when filter_mode is False.
+        """
+        filtered = self.handler.filter_account_summaries(
+            filter_field="balance",
+            filter_value=5000,
+            filter_mode=False
+        )
+
+        expected = [
+            {"account_number": "1001", "balance": 50, "total_deposits": 100, "total_withdrawals": 50},
+            {"account_number": "1002", "balance": 200, "total_deposits": 200, "total_withdrawals": 0},
+            {"account_number": "1005", "balance": -2200, "total_deposits": 222, "total_withdrawals": 2422}
+        ]
+
+        self.assertEqual(filtered, expected)
+    
+    def test_write_filtered_summaries_to_csv(self):
+        # Arrange
+        output = OutputHandler(self.account_summaries,
+                                self.suspicious_transactions,
+                                self.transaction_statistics)
+        filepath = "filtered_account_summaries.csv"
+    
+        filtered_data = output.filter_account_summaries("balance", 5000, False)
+        # Act
+        with patch("builtins.open", mock_open()) as mocked_open:
+       
+            output.write_filtered_summaries_to_csv(filtered_data, filepath)
+            mock_file = mocked_open()
+    
+        # Assert
+        expected_rows = 1 + len(filtered_data)
+    
+        self.assertEqual(mock_file.write.call_count, expected_rows)
 
 if __name__ == "__main__":
     main()
