@@ -136,3 +136,56 @@ class OutputHandler:
                 writer.writerow([transaction_type, 
                                  statistic["total_amount"], 
                                  statistic["transaction_count"]])
+
+    # 
+    def filter_account_summaries(self, filter_field: str, filter_value: int, filter_mode: bool) -> list:
+        """
+        Filters account summaries based on a field and value.
+
+        Args:
+            filter_field (str): The field to filter by (e.g., 'balance').
+            filter_value (int): The value to compare against.
+            filter_mode (bool): If True, filter for values greater than filter_value; if False, less than or equal.
+
+        Returns:
+            list: Filtered account summaries.
+        """
+        filtered = []
+        for account_number, summary in self.__account_summaries.items():
+            field_value = summary[filter_field]
+
+            if filter_mode:
+                if field_value >= filter_value:
+                    filtered.append(summary)
+            else:
+                if field_value <= filter_value:
+                    filtered.append(summary)
+        return filtered
+    
+    def write_filtered_summaries_to_csv(self, filtered_data: list, file_path: str) -> None:
+        """
+        Writes filtered account summaries to csv file.
+
+        Args:
+            filtered_data (list): List of dictionaries containing filtered account summaries.
+            file_path (str): The file path where the csv will be written.
+        """
+
+        if not filtered_data:
+            print("There is no filtered data to write.")
+            return
+        
+        # Get csv headers from dictionary keys
+        fieldnames = filtered_data[0].keys()
+
+        try:
+            with open(file_path, mode="w", newline="", encoding="utf-8") as file:
+                writer = csv.DictWriter(file, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(filtered_data)
+            
+            print(f"Filtered summaries are written successfully written to {file_path}")
+        
+        except Exception as e:
+            print(f"Failed to write filtered account summaries to '{file_path}': {e}")
+                

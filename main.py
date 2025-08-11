@@ -58,5 +58,21 @@ def main() -> None:
     output_handler.write_suspicious_transactions_to_csv(file_path["suspicious_transactions"])
     output_handler.write_transaction_statistics_to_csv(file_path["transaction_statistics"])
 
+    # Filtering 
+    filtered_filename = path.join(
+        current_directory,
+        "output",
+        "fdp_filter_team_2.csv"   
+    )
+
+    filtered_summaries = output_handler.filter_account_summaries(
+        "balance", 5000, False
+    )
+
+    output_handler.write_filtered_summaries_to_csv(filtered_summaries, filtered_filename)
+
+    print(f"Filtered account summaries written to: {filtered_filename}")
+
+
 if __name__ == "__main__":
     main()
