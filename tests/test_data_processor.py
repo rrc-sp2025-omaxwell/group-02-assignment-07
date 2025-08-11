@@ -171,6 +171,7 @@ class TestDataProcessor(TestCase):
         data_processor.update_transaction_statistics(transaction)
 
         # Assert
+
         self.assertEqual(data_processor.transaction_statistics["deposit"],{"total_amount":1000, "transaction_count": 1})
       
     # logging
@@ -189,6 +190,8 @@ class TestDataProcessor(TestCase):
         logged_messages = log_cm.output
         matching_logs = [msg for msg in logged_messages if "Data Processing Complete" in msg]
         self.assertEqual(len(matching_logs), 1)
+        self.assertEqual(data_processor.transaction_statistics["deposit"],{"total_amount":1000, "transaction": 1})
+
 
 if __name__ == "__main__":
     unittest.main()

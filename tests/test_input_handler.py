@@ -35,6 +35,29 @@ class InputHandlerTests(TestCase):
             + "1,1001,2023-03-01,deposit,1000,CAD,Salary\n"
             + "2,1002,2023-03-01,deposit,1500,CAD,Salary\n"
             + "3,1001,2023-03-02,withdrawal,200,CAD,Groceries")
+        
+        self.transactions = [{
+            "Transaction ID": "1",
+            "Account number": "1001",
+            "Date": "2023-03-01",
+            "Transaction type": "deposit",
+            "Amount": "1200",
+            "Currency": "CAD",
+            "Description": "Salary"},
+                {"Transaction ID": "2",
+                "Account number": "1002",
+                "Date": "2023-03-01",
+                "Transaction type": "withdrawal",
+                "Amount": "1800",
+                "Currency": "CAD",
+                "Description": "Salary"},
+                    {"Transaction ID": "3",
+                    "Account number": "1003",
+                    "Date": "2023-03-01",
+                    "Transaction type": "transfer",
+                    "Amount": "2000",
+                    "Currency": "CAD",
+                    "Description": "Salary"}]
 
     # Define unit test functions below
 
@@ -150,6 +173,55 @@ class InputHandlerTests(TestCase):
 
         # Act
         actual = InputHandler.read_input_data(file_name)
+
+        # Assert
+        self.assertEqual(expected, actual)
+
+
+
+    # MILESTONE 2 UNITTESTING
+
+
+
+    # Returns a list of transactions that excludes records with an amount
+    #  that is not a numeric type (int or float).
+
+    def test_data_validation_numeric_type(self):
+        # Arrange
+        self.transactions[2]["Amount"] = "Money"
+        expected = [self.transactions[0],self.transactions[1]]
+
+        # Act
+        actual = InputHandler.data_validation(self, self.transactions)
+
+        # Assert
+        self.assertEqual(expected, actual)
+
+
+    # Returns a list of transactions that excludes records
+    #  with amount less than zero.
+
+    def test_data_validation_less_than_zero(self):
+        # Arrange
+        self.transactions[1]["Amount"] = -10
+        expected = [self.transactions[0],self.transactions[2]]
+
+        # Act
+        actual = InputHandler.data_validation(self, self.transactions)
+
+        # Assert
+        self.assertEqual(expected, actual)
+
+    # Returns a list of transactions that excludes records
+    #  with an invalid transaction_type.
+    
+    def test_data_validation_invalid_transaction_type(self):
+        # Arrange
+        self.transactions[0]["Transaction type"] = "Move Funds"
+        expected = [self.transactions[1],self.transactions[2]]
+
+        # Act
+        actual = InputHandler.data_validation(self, self.transactions)
 
         # Assert
         self.assertEqual(expected, actual)
